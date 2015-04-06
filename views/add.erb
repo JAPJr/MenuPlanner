@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+     <meta charset="utf8">
+     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aclonica" />
+    <script>
+         function giveColorValue() {
+	     alert(document.colors.choose.value);
+	}
+    </script>
+    <style> 
+       body {
+		 margin:0px 200px;
+                 background-color:lightgray;		 
+       }
+       h1 {
+             text-align:center;
+	}
+      INPUT.text, textarea {
+         Height:80px;
+	 Width:600px;
+	 font-family:"Palatino Linotype", "Book Antiqua";
+	 background-color:#CEEEFA;
+	 font-size:15px;
+	 color:slategray;
+	 border:solid,5px;
+      }
+      div.checkbox {
+          display:inline-block;
+          width:140px;	  
+      }
+      input.cb {
+          display:inline-block:
+	  width:70px;
+	  padding:0px 50px 0px 0px;
+       }
+       label {
+           display:inline-block;
+	   width:100px;
+        }
+    </style>
+  </head>
+  <body>  
+<!--    <h1> <%= @heading %> </h1> -->
+     <h1>Add a Recipe</h1>
+    <p>
+    Fill out the form below and click "submit" to add a recipe to the data base.
+    
+
+    <form action="/add" method="post">
+	<p>
+	 <label for="Text">Recipe Name:</label>
+         <INPUT TYPE="Text" class="text" Name="name" Size=150 Placeholder="Recipe name here"0% required style="height:30px">
+         </p>
+	<p>
+	 <label for="Text">Contributed by:</label>
+         <INPUT TYPE="Text" class="text" Name="contributor" Size=150 Placeholder="Your Name"0% required style="height:30px">
+         </p>
+         <div style="height:10px">
+	 </div>
+
+         Check all that apply:
+	 <div style=margin:10px 0px 20px;>
+            <div style="display:block">
+	         <div class=checkbox>
+	              <Input class="cb" type="checkbox" name="meal[]" id="c1" value="breakfast">
+	              <label for=c1">Breakfast</label>
+	         </div>
+	         <div class=checkbox>	   
+	              <Input class="cb" type="checkbox" name="meal[]" id="c2" value="lunch">
+	              <label for=c2">Lunch</label>
+	         </div>
+	         <div class=checkbox>
+	              <Input class="cb" type="checkbox" name="meal[]" id="c3" value="supper">
+	              <label for=c3">Supper</label>
+	         </div>
+            </div>
+	    
+            <div style="display:block">
+	         <div class=checkbox>
+	              <Input type="checkbox" name="dish[]" id="c4" value="entree">
+	              <label for=c4">Entree</label>
+	         </div>
+	         <div class=checkbox>
+	              <Input type="checkbox" name="dish[]" id="c5" value="side">
+	              <label for=c5">Side</label>
+	         </div>
+	         <div class=checkbox>
+	              <Input type="checkbox" name="dish[]" id="c6" value="dessert">
+	              <label for=c6">Dessert</label>
+                 </div>
+	         <div class=checkbox>
+	            <Input type="checkbox" name="dish[]" id="c7" value="snack">
+	            <label for="c7">Snack</label>
+                 </div>
+	    </div>
+	    
+	    <div style="display:block">
+	       <div class=checkbox>
+	            <Input type="checkbox" name="veg" id="c8" value="yes">
+                    <label for="c8">Vegetarian</label>		    
+               </div>
+	    </div>
+	</div>
+         <p>
+	 <label for=ingredient-text>Ingredients<br>One per line<br>  <br></label>
+	 <textarea name="ingredients" id=ingredient-text Rows=3 cols=40>
+            Quantity ; Ingredient
+	 </textarea>
+        </p>
+	 <label for=instruction-text>Instructions<br> <br> <br></label>
+	<textarea name="instructions" id="instruction-text" ROWS=3 COLS=100>
+	Enter recipe here.
+	</textarea>
+	<input type="Submit" style="margin-left:30px" value="Submit here ...">
+</form>
+
+<nav style="display:block; position:absolute; bottom:20px">
+
+    <div style="display:inline-block; position:static; width:450px; margin-left:auto; margin-right:auto;">
+
+
+          <form method="link" action="/">
+               <input type="submit" value="Home" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
+          </form>
+
+     
+
+          <form method="link" action="/search">
+               <input type="submit" value="Search" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
+          </form>
+
+     
+
+          <form method="link" action="/add">
+               <input type="submit" value="Add" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
+          </form>
+    </div>
+
+</nav>
+
+  </body>
+</html>

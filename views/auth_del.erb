@@ -1,0 +1,25 @@
+<head>
+   <style>
+      div.warn {color:red; font-size:large}
+   </style>
+</head>
+Are you sure that you want to delete  recipe <%=@recipe_to_delete%>?
+<p>
+
+</p>
+<div class="warn">
+<%=@auth_msg + "<br>"%>
+</div>
+Yes, my password is 
+<form action="/<%=@recipe_to_delete%>" method="post">
+   <input type="hidden" name="_method" value="delete">
+   <input type="password" name="pword">
+   <input type="submit" value="delete now">
+</form>
+
+<p>
+
+</p>
+No, take me back to recipe <a href="/view/<%=@recipe_to_delete%>"><%=Recipe.get(@recipe_to_delete).name%>, Recipe #<%=@recipe_to_delete%> </a>.
+
+

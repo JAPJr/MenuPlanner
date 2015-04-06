@@ -1,0 +1,9 @@
+
+ <%@ids.each do |idx|%>
+   <div style="background-color:lightblue">
+      <%=@recipes.get(idx).name%><br>
+      <%=@recipes.get(idx).ingredients%><a href="/view/<%=idx%>">[view]</a><br>
+    </div>
+   <div style="height:20px">
+   </div>
+<%end%>
