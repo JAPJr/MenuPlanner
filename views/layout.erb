@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+<style>
+    html, body {
+    height:100%
+    }
+    header {
+        background-color:DarkOliveGreen;
+	color:white;
+	text-align:center;
+	position:fixed;
+	top:0;
+	height:40px;
+	left:0;
+	width:100%;
+    }
+</style>
+</head>
+
+<body>
+<header>
+<div style="background-color:white; height:5px">
+</div>
+<h3 style="margin-top:7px;">Menue Planner &#8212 <small>for recipe storage and search</small></h3>
+</header>
+
+<div style="background-color:white; height:15px">
+</div>
+
+<%= yield %>
+
+<footer>
+<nav style="position:fixed; bottom:0; left:0; height:40px; width:100%; background-color:DarkOliveGreen">
+  <div style="display:inline-block; width:360px; margin-left:460px; padding-top:10px">
+          <%@nav_forms.each do |aform|%>
+	    <%=aform%>
+	  <%end%>
+  </div>
+</nav>
+</footer>
+
+</body>
