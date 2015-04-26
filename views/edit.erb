@@ -46,14 +46,15 @@
     <p>
     Edit any text, click or un-click check boxes, and submit.
     
-    <form action="/add" method="post">
+    <form action="/<%=@recipe_to_edit%> " method="post" id="edit">
+        <input type="hidden" name="_method" value="put"
 	<p>
 	 <label for="Text">Recipe Name:</label>
-         <INPUT TYPE="Text" class="text" Name="name" Size=150 Placeholder=<%=Recipe.get(@recipe_to_edit).name%>0% required style="height:30px">
+         <INPUT TYPE="Text" class="text" Name="name" Size=150 Value="<%=Recipe.get(@recipe_to_edit).name%>" Placeholder="Recipe Name" style="height:30px">
          </p>
 	<p>
 	 <label for="Text">Contributed by:</label>
-         <INPUT TYPE="Text" class="text" Name="contributor" Size=150 Placeholder=<%=Recipe.get(@recipe_to_edit).contributor%>0% required style="height:30px">
+         <INPUT TYPE="Text" class="text" Name="contributor" Size=150 Value="<%=Recipe.get(@recipe_to_edit).contributor%>" Placeholder="Contributor"  style="height:30px">
          </p>
          <div style="height:10px">
 	 </div>
@@ -114,29 +115,6 @@
 	<input type="Submit" style="margin-left:30px" value="Submit here ...">
 </form>
 
-<nav style="display:block; position:absolute; bottom:20px">
-
-    <div style="display:inline-block; position:static; width:450px; margin-left:auto; margin-right:auto;">
-
-
-          <form method="link" action="/">
-               <input type="submit" value="Home" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
-          </form>
-
-     
-
-          <form method="link" action="/search">
-               <input type="submit" value="Search" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
-          </form>
-
-     
-
-          <form method="link" action="/add">
-               <input type="submit" value="Add" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
-          </form>
-    </div>
-
-</nav>
 
   </body>
 </html>
