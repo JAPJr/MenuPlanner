@@ -2,15 +2,9 @@
 <html lang="en">
   <head>
      <meta charset="utf8">
-     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aclonica" />
-    <script>
-         function giveColorValue() {
-	     alert(document.colors.choose.value);
-	}
-    </script>
     <style> 
        body {
-		 margin:0px 200px;
+
                  background-color:lightgray;		 
        }
        h1 {
@@ -45,8 +39,10 @@
     </style>
   </head>
   <body>  
-<!--    <h1> <%= @heading %> </h1> -->
+  <div style="height:30px">
+  </div>
      <h1>Recipe Search</h1>
+  <div style="padding:0px 200px">
     <p>
     Search for a recipe by specifying at least one of the catagories below.  Multiple keywords and multiple ingredients should be
     separated by commas or semi-colons.
@@ -61,7 +57,7 @@
 	 <label for="text2">Ingredients:  </label>
          <INPUT TYPE="text" ID="text2" Name="ingredients" Size=80 Placeholder="Enter ingredients here"0%>
          </p>
-         <p style="margin:60px 0px 0px 0px;">
+         <p style="margin:40px 0px 0px 0px;">
          Check all that apply:<br>
 	 <div style=margin:20px 0px 20px;>
             <div style="display:block">
@@ -114,28 +110,11 @@
                </div>
 	    </div>
 	</div>
-	<div style=margin-top:60px>
+	<div style=margin-top:40px>
 	<INPUT TYPE="Submit" Value="Search Selection">
 	</div>
-</form>
-
-<nav style="block; position:absolute; bottom:20px">
-
-    <div style="display:inline-block; width:300px; margin-left:auto; margin-right:auto;">
-
-
-          <form method="link" action="/">
-               <input type="submit" value="Home" style="display:inline; float:left; width:100px; margin: 0px 25px; height:30px;">
-          </form>
-
-     
-
-          <form method="link" action="/add">
-               <input type="submit" value="Add" style="display:inline; float:left; width:100px; margin: 0px 25px; height:30px;">
-          </form>
-    </div>
-
-</nav>
+    </form>
+</div>
 
   </body>
 </html>

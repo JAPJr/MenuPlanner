@@ -29,10 +29,19 @@ class Ingredient_list
     ingredient_array = text_to_a
     clean_array(ingredient_array)
   end
+  
+  def no_quantity
+    ingredient_array = get_array
+   list = ""
+   ingredient_array[0..-2].each do |item|
+    list << "#{item[1]}; "
+  end
+  list << "#{ingredient_array[-1][1]}."   
+  end
 end
 
-      
-      
+  
+  
 class Ingredient_disp
   attr_reader :ingredient_array
   def initialize(ingredient_array)

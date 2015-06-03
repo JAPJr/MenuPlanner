@@ -4,7 +4,7 @@
   <%@ids.each do |idx|%>
   <div style="background-color:lightblue">
   <%=@recipes.get(idx).name%><br>
-  <%=Ingredient_list.new(@recipes.get(idx).ingredients).no_quantity%><a style="margin-left:8px"href="/view/<%=idx%>">[view]</a><br>
+  <%=@recipes.get(idx).ingredients%><a href="/view/<%=idx%>">[view]</a><br>
   </div>
   <div style="height:20px">
   </div>

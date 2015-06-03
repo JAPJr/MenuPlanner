@@ -10,7 +10,7 @@
     </script>
     <style> 
        body {
-		 margin:0px 200px;
+
                  background-color:lightgray;		 
        }
        h1 {
@@ -40,21 +40,24 @@
         }
     </style>
   </head>
-  <body>  
-<!--    <h1> <%= @heading %> </h1> -->
+  <body> 
+  <div style="height:20px">
+  </div>  
+
      <h1>Add a Recipe</h1>
+<div style="padding:0px 200px">
     <p>
     Fill out the form below and click "submit" to add a recipe to the data base.
     
 
     <form action="/add" method="post">
-	<p>
+
 	 <label for="Text">Recipe Name:</label>
-         <INPUT TYPE="Text" class="text" Name="name" Size=150 Placeholder="Recipe name here"0% required style="height:30px">
-         </p>
-	<p>
+         <INPUT TYPE="Text" class="text" Name="name" Size=150 Placeholder="Recipe name here" required style="height:30px">
+
+         <p>
 	 <label for="Text">Contributed by:</label>
-         <INPUT TYPE="Text" class="text" Name="contributor" Size=150 Placeholder="Your Name"0% required style="height:30px">
+         <INPUT TYPE="Text" class="text" Name="contributor" Size=150 Placeholder="Your Name" required style="height:30px">
          </p>
          <div style="height:10px">
 	 </div>
@@ -104,40 +107,15 @@
 	</div>
          <p>
 	 <label for=ingredient-text>Ingredients<br>One per line<br>  <br></label>
-	 <textarea name="ingredients" id=ingredient-text Rows=3 cols=40>
-            Quantity ; Ingredient
-	 </textarea>
+	 <textarea name="ingredients" id="ingredient-text" Rows="3" cols="40" 
+	     placeholder="Enter 'QUANTITY; INGREDIENT' or just ';INGREDIENT', if no quantity specified."></textarea>
         </p>
 	 <label for=instruction-text>Instructions<br> <br> <br></label>
-	<textarea name="instructions" id="instruction-text" ROWS=3 COLS=100>
-	Enter recipe here.
-	</textarea>
+	<textarea name="instructions" id="instruction-text" ROWS="3" COLS="100" placeholder="Enter recipe here."></textarea>
 	<input type="Submit" style="margin-left:30px" value="Submit here ...">
-</form>
+    </form>
+</div>
 
-<nav style="display:block; position:absolute; bottom:20px">
-
-    <div style="display:inline-block; position:static; width:450px; margin-left:auto; margin-right:auto;">
-
-
-          <form method="link" action="/">
-               <input type="submit" value="Home" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
-          </form>
-
-     
-
-          <form method="link" action="/search">
-               <input type="submit" value="Search" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
-          </form>
-
-     
-
-          <form method="link" action="/add">
-               <input type="submit" value="Add" style="display:inline; float:left; width:100px; margin: 0px 25px; height:50px;">
-          </form>
-    </div>
-
-</nav>
 
   </body>
 </html>

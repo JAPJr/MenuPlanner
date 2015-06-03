@@ -10,7 +10,7 @@
     </script>
     <style> 
        body {
-		 margin:0px 200px;
+
                  background-color:lightgray;		 
        }
        h1 {
@@ -41,8 +41,9 @@
     </style>
   </head>
   <body>  
-<!--    <h1> <%= @heading %> </h1> -->
+
      <h1>Edit Recipe</h1>
+<div style="padding:0px 200px">
     <p>
     Edit any text, click or un-click check boxes, and submit.
     
@@ -104,17 +105,13 @@
 	</div>
          <p>
 	 <label for=ingredient-text>Ingredients<br>One per line<br>  <br></label>
-	 <textarea name="ingredients" id=ingredient-text Rows=3 cols=40>
-            <%=Recipe.get(@recipe_to_edit).ingredients%>
-	 </textarea>
+	 <textarea name="ingredients" id=ingredient-text Rows=3 cols=40><%=Recipe.get(@recipe_to_edit).ingredients.strip%></textarea>
         </p>
 	 <label for=instruction-text>Instructions<br> <br> <br></label>
-	<textarea name="instructions" id="instruction-text" ROWS=3 COLS=100>
-	   <%=Recipe.get(@recipe_to_edit).instructions%>
-	</textarea>
+	<textarea name="instructions" id="instruction-text" ROWS=3 COLS=100><%=Recipe.get(@recipe_to_edit).instructions.strip%></textarea>
 	<input type="Submit" style="margin-left:30px" value="Submit here ...">
-</form>
-
+    </form>
+</div>
 
   </body>
 </html>

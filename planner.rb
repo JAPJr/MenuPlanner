@@ -3,8 +3,11 @@ require 'data_mapper'
 require 'dm-noisy-failures'
 require './functions'
 require 'redcloth'
+require 'dm-postgres-adapter'
 
-DataMapper.setup :default, "sqlite://#{Dir.pwd}/menu.db"
+#DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/menu.db")
+DataMapper::Logger.new($stdout, :debug)
+DataMapper::setup(:default, "postgres://john:mangia@localhost/menu.db")
 	
 class Recipe
   include DataMapper::Resource
@@ -21,12 +24,33 @@ end
 
 DataMapper.finalize.auto_upgrade!
 
+        home_form = <<HERE
+	<form method="link" action="/">
+               <input type="submit" value="Home" style="display:inline; float:left; width:80px; height:25px; font-size:12px; margin:0px 20px">
+	</form>
+HERE
+
+search_form  = <<HERE
+          <form method="link" action="/search">
+               <input type="submit" value="Search" style="display:inline; float:left; width:80px; height:25px; font-size:12px; margin:0px 20px">
+	</form>
+HERE
+
+add_form = <<HERE
+          <form method="link" action="/add">
+               <input type="submit" value="Add" style="display:inline; float:left; width:80px; height:25px; font-size:12px; margin:0px 20px">
+	</form>
+HERE
 
 get '/' do
+  @nav_forms = []
+  @nav_forms << search_form << add_form
   erb :home
 end
 
 get '/search' do
+  @nav_forms = []
+  @nav_forms << home_form << add_form
   erb:search
 end
 
@@ -55,6 +79,8 @@ get '/list' do
      end
    end
 
+  @nav_forms = []
+  @nav_forms << home_form << search_form << add_form
 
    @recipes = Recipe.all
    @ids = []
@@ -63,8 +89,7 @@ get '/list' do
    end
    
    eliminate_ids = []
- puts "All parameters are:"
- puts params
+
  
    if  !(params[:keywords].empty?) then 
        @key_array = List.new(params[:keywords]).to_a
@@ -77,7 +102,6 @@ get '/list' do
        end
        @ids -= eliminate_ids
   end
-  puts "Raw ingredient list is: #{params[:ingredients]}."
 
    if  !(params[:ingredients].empty?) then 
        @ingredient_array = List.new(params[:ingredients]).to_a
@@ -94,9 +118,7 @@ get '/list' do
    if params[:meal].length > 1 then
         @ids.each do |idx|
 		meals = @recipes.get(idx).meal
-		puts "For index #{idx} meal is: #{meals}."
 		if meals then
-			puts "There are meals specified."
 			if params[:meal][0] == "any" then
 			     rid = true
 			     params[:meal][1..-1].each do |type|
@@ -109,10 +131,8 @@ get '/list' do
 				end
 			end
 		else     
-			puts "There are no meals specified."
 			rid = true
 		end
-	       puts "Rid is #{rid}."
 	       if rid then eliminate_ids << idx end
        end
        @ids -= eliminate_ids
@@ -140,41 +160,32 @@ get '/list' do
 	     end
 	     if rid then eliminate_ids << idx end
        end
-       @ids -= eliminate_ids
-	puts
-        puts "Remaining ids after checking dish type are: #{@ids}" 
+       @ids -= eliminate_ids 
   end
 
-
-  puts "Vegetarian is #{params[:veg]}"    
+   
   if params[:veg] == "yes" then
         @ids.each do |idx|
-	    puts "For index = #{idx} veg is #{@recipes.get(idx).veg}"
 	    if !@recipes.get(idx).veg | !(@recipes.get(idx).veg=="yes") then eliminate_ids << idx end
         end
            @ids -= eliminate_ids
-	    puts
-            puts "Remaining ids after checking for vegetarian are: #{@ids}"
   end
-
-
 	
-
-
-
-   erb :list
+  erb :list
 
 end
 
 
 get '/add' do
-	erb :add
+  @nav_forms = []
+  @nav_forms << home_form << search_form
+  erb :add
 end
 
 post '/add' do
   r= Recipe.new
   r.name = params[:name]
-  r.contributor = params[:contributor]
+  r.contributor = params[:contributor] 
   r.meal= params[:meal]
   r.dish = params[:dish]
   r.veg = params[:vegetarian]
@@ -185,19 +196,18 @@ post '/add' do
 end
 
 get '/view/:id' do
-#   @id = 7 
+  @nav_forms = []
+  @nav_forms << home_form << search_form << add_form
    @id = params[:id]
    text = Recipe.get(@id).ingredients
    i_list = Ingredient_list.new(text).get_array 
    @ingredient_block= Ingredient_disp.new(i_list).html_out
-   puts
-   puts "***************************************"
-   puts Recipe.get(@id).instructions
-   puts"***************************************"
    erb :view
 end   
 
 get '/auth_del/:id' do
+  @nav_forms = []
+  @nav_forms << home_form << search_form << add_form
   @recipe_to_delete = params[:id]
   @auth_msg = ""
   erb :auth_del
@@ -209,6 +219,8 @@ get '/view_all' do
 end
  
 delete '/:id' do
+  @nav_forms = []
+  @nav_forms << home_form << search_form << add_form
   if  params[:pword] == "chiral" then
     Recipe.get(params[:id]).destroy
     @auth_msg = ""
@@ -217,7 +229,6 @@ delete '/:id' do
     @auth_msg = "Password incorrect.  Re-enter or return to recipe using button below."
     @recipe_to_delete = params[:id]
     erb :auth_del
- #   redirect '/fail'
   end
 end	
 
@@ -230,13 +241,34 @@ get '/redcloth' do
 end
 
 get '/:id' do
+	"Edit has  been requested"
+  @nav_forms = []
+  @nav_forms << home_form << search_form << add_form
   @recipe_to_edit = params[:id]
-#  puts "Recipe to edit is #{@recipe_to_edit} in get id"
-#  "<h1>The id is #{@recipe_to_edit}</h1> and the name of the recipe is #{Recipe.get(@recipe_to_edit).name}."
   
   erb :edit
 end
 
+
+put '/:id' do
+
+=begin
+  @nav_forms = []
+  @nav_forms  << home_form << search_form << add_form
+  erb  "<div style='height:50px'></div>About to save edited recipe.  The new instructions are: <%=params[:instructions]%>."
+=end
+  r = Recipe.get params[:id]
+  r.contributor = params[:contributor]
+  r.name = params[:name]
+  r.meal = params[:meal]
+  r.dish = params[:dish]
+  r.veg = params[:veg]
+  r.ingredients = params[:ingredients]
+  r.instructions = params[:instructions]
+  r.save
+  redirect '/'
+
+end
 
 
 
